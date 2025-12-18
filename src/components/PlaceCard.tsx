@@ -88,17 +88,10 @@ export function PlaceCard({ place, rank }: PlaceCardProps) {
             </div>
           </div>
 
-          <a 
-            href={googleMapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/link mb-3 flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="mb-3 flex items-center gap-1 text-xs text-muted-foreground">
             <MapPin className="h-3 w-3" />
             <span className="truncate">{place.address}</span>
-            <ExternalLink className="h-3 w-3 opacity-0 group-hover/link:opacity-100 transition-opacity" />
-          </a>
+          </div>
 
           {place.cuisine && (
             <p className="mb-3 text-sm text-muted-foreground">{place.cuisine}</p>
@@ -126,6 +119,19 @@ export function PlaceCard({ place, rank }: PlaceCardProps) {
               {place.reviewCount.toLocaleString()} reviews
             </span>
           </div>
+
+          {/* See Location Button */}
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-secondary py-2.5 text-sm font-medium text-secondary-foreground transition-all hover:bg-primary hover:text-primary-foreground"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <MapPin className="h-4 w-4" />
+            See Location
+            <ExternalLink className="h-3 w-3" />
+          </a>
         </div>
       </div>
     </Card>

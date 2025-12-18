@@ -1,7 +1,7 @@
 import { Place } from '@/types/place';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star, MapPin, TrendingUp, Sparkles } from 'lucide-react';
+import { Star, MapPin, TrendingUp, Sparkles, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface PlaceCardProps {
@@ -22,6 +22,8 @@ export function PlaceCard({ place, rank }: PlaceCardProps) {
     if (score >= 70) return 'Good Match';
     return 'Fair Match';
   };
+
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${place.coordinates.lat},${place.coordinates.lng}&query_place_id=${encodeURIComponent(place.name)}`;
 
   return (
     <Card 
@@ -86,10 +88,17 @@ export function PlaceCard({ place, rank }: PlaceCardProps) {
             </div>
           </div>
 
-          <div className="mb-3 flex items-center gap-1 text-xs text-muted-foreground">
+          <a 
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/link mb-3 flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
             <MapPin className="h-3 w-3" />
             <span className="truncate">{place.address}</span>
-          </div>
+            <ExternalLink className="h-3 w-3 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+          </a>
 
           {place.cuisine && (
             <p className="mb-3 text-sm text-muted-foreground">{place.cuisine}</p>
